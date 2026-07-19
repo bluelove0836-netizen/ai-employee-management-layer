@@ -2,7 +2,25 @@
 
 **The management layer for AI "employees" — free sample.**
 
-Everyone hands you 100 free Claude Code subagents. Nobody tells you how to stop them from quietly wrecking your business. This repo is the *management* side: the delegation contract and the two watchdog agents from a real AI-staffed solo operation (multi-channel content + commerce, running daily on Claude Code).
+> Everyone hands you 100 free Claude Code subagents. Nobody tells you how to stop them from quietly wrecking your business. This repo is the *management* side.
+
+The agents are the easy part now — there are free packs of 100+. What actually breaks a multi-agent setup is management: an agent reports success it didn't earn, two agents fight over the same file, one invents a number you almost ship, a job dies silently for a week. None of that is an agent problem. It's a **governance** problem.
+
+This repo is the delegation contract and the two watchdog agents from a real solo operation that runs multiple content + commerce pipelines daily on Claude Code.
+
+## The 4 rules this encodes
+
+1. **Delegation is a written contract, not a prompt.** An agent runs free *inside* a fence — because the fence is written down (goal, authority, boundaries, definition-of-done, escalate-to-human).
+2. **Facts only.** No agent may state a number without a live source; otherwise it says `unverified`. Your dashboard stops flattering you.
+3. **Trust artifacts, not exit codes.** A pipeline is "alive" only if today's public output actually exists — not because a script exited `0`. (This rule was born from a scheduler that logged `success` for 6 days while publishing nothing.)
+4. **Blockers are a checklist, not a chat message.** Things only a human may do get surfaced in every report until cleared.
+
+```
+owner ── chief-of-staff ── CMO ── blog / shorts / social / newsletter / commerce leads
+                              ├── analytics-lead   (facts only)
+                              ├── qa-reviewer      (last gate)  ← in this repo
+                              └── ops-monitor      (live-not-logs) ← in this repo
+```
 
 ## What's here (3 files, plain markdown, zero dependencies)
 
