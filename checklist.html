@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 Checks Before You Trust a Claude Code Agent Unattended</title>
+<meta name="description" content="Before you let a Claude Code agent run unattended, check these five failure points. A working demo is not a working system — most autonomous agents fail quietly, not loudly.">
+<meta name="keywords" content="claude code agent reliability, trust ai agent, claude code unattended, ai agent monitoring, claude code agent failing, verify agent ran, live not logs">
+<link rel="canonical" href="https://bluelove0836-netizen.github.io/ai-employee-management-layer/checklist.html">
+<meta property="og:title" content="5 Checks Before You Trust a Claude Code Agent Unattended">
+<meta property="og:description" content="A working demo is not a working system. The 5 checks that catch quiet failures.">
+<style>
+  :root{--bg:#0d1117;--fg:#e6edf3;--mut:#8b949e;--acc:#7ee2a8;--card:#161b22;--bd:#30363d}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:30px;line-height:1.15;letter-spacing:-.8px;margin:0 0 8px}h1 .a{color:var(--acc)}
+  .sub{color:var(--mut);font-size:18px;margin:0 0 24px}
+  h2{font-size:20px;margin:32px 0 8px}h2 .n{color:var(--acc)}
+  nav a{color:var(--mut);font-size:14px;margin-right:14px;text-decoration:none}
+  p{margin:8px 0}code{font-family:ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:1px 5px;font-size:13.5px}
+  pre{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+  .cta{display:block;background:var(--card);border:1px solid var(--acc);border-radius:12px;padding:22px;margin:34px 0;text-decoration:none;color:var(--fg)}.cta b{color:var(--acc)}
+  .btn{display:inline-block;margin-top:10px;background:var(--acc);color:#08130c;font-weight:700;padding:10px 18px;border-radius:8px;text-decoration:none}
+  a{color:var(--acc)}footer{color:var(--mut);font-size:13px;margin-top:40px;border-top:1px solid var(--bd);padding-top:16px}
+  @media(prefers-color-scheme:light){:root{--bg:#fff;--fg:#1b1f24;--mut:#57606a;--card:#f6f8fa;--bd:#d0d7de;--acc:#1a7f43}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <nav><a href="./">← Governance guide</a><a href="charter.html">Charter template</a></nav>
+  <h1>5 checks before you trust a <span class="a">Claude Code agent</span> unattended</h1>
+  <p class="sub">A working demo is not a working system. When you leave a Claude Code agent running unattended, it almost never fails loudly — it fails <em>quietly</em>. These five checks catch the quiet failures.</p>
+
+  <h2><span class="n">1.</span> Does the agent verify the artifact, not the exit code?</h2>
+  <p>The most expensive failure: the log says success, reality says nothing happened. A scheduled job can log <code>success</code> for days while an expired session silently publishes nothing. The agent must check live external state:</p>
+  <pre>curl -s https://your-site.com/ | grep -q "$(date +%Y-%m-%d)" \
+  && echo ALIVE || echo "NO ARTIFACT TODAY"</pre>
+  <p>A job is done only if today's public artifact actually exists. Exit <code>0</code> lies.</p>
+
+  <h2><span class="n">2.</span> Is the session valid <em>right now</em>?</h2>
+  <p>Not "did it work yesterday." One cheap authenticated call each run. Auth for stats often dies before auth for publishing, so a "no data" day can secretly be a "monitoring is broken" day.</p>
+
+  <h2><span class="n">3.</span> Can it state a number it can't source?</h2>
+  <p>Give the agent one rule: no number without a live source, otherwise say <code>unverified</code>. Agents fabricate to be <em>helpful</em> — which is worse, because it reads as confident. This catches the number that quietly ends up in a report you almost sent.</p>
+
+  <h2><span class="n">4.</span> Is there a written boundary it can't cross?</h2>
+  <p>Payments, new accounts, legal terms, publishing under your name — the agent must escalate these as blockers, never improvise around them. If the boundary isn't written down in a charter, the agent will eventually guess.</p>
+
+  <h2><span class="n">5.</span> Will a missed run be visible?</h2>
+  <p>If the scheduler silently unloads (OS update, migration), nothing runs and nothing notices. Verify the job is still loaded (<code>launchctl list</code> / <code>crontab -l</code>) and that a report line landed for every scheduled run.</p>
+
+  <a class="cta" href="https://github.com/bluelove0836-netizen/ai-employee-management-layer">
+    <b>Free watchdog agents on GitHub →</b><br>
+    A live-not-logs <code>ops-monitor</code> and a ship-gate <code>qa-reviewer</code> that encode these checks. Plain markdown, MIT.
+  </a>
+
+  <a class="cta" href="https://bluelove3.gumroad.com/l/ai-employee-company?utm_source=ghpages&utm_medium=checklist&utm_campaign=organic">
+    <b>The full kit</b><br>
+    12 agents + delegation charter + memory system + scheduling recipes + the 12 lessons behind every check above. Launch price ladder: starts $19, +$10 per sale (public count). Earlier is cheaper.
+    <span class="btn">Get the kit</span>
+  </a>
+  <footer>Part of a free governance guide for running Claude Code agents unattended. <a href="./">Read the 5 rules →</a></footer>
+</main>
+</body>
+</html>

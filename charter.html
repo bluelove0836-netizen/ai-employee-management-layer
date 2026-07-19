@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Delegation Charter: Template + How to Write One</title>
+<meta name="description" content="A delegation charter is what lets a Claude Code agent run autonomously without drifting or overstepping. Free template with goal, authority, boundaries, definition-of-done, and human-only escalation — plus how to write one.">
+<meta name="keywords" content="claude code delegation charter, claude code agent template, ai agent charter, claude code agent boundaries, autonomous agent guardrails, claude agents md template">
+<link rel="canonical" href="https://bluelove0836-netizen.github.io/ai-employee-management-layer/charter.html">
+<meta property="og:title" content="Claude Code Delegation Charter: Template + How to Write One">
+<meta property="og:description" content="What lets a Claude Code agent run autonomously without drifting or overstepping — free template.">
+<style>
+  :root{--bg:#0d1117;--fg:#e6edf3;--mut:#8b949e;--acc:#7ee2a8;--card:#161b22;--bd:#30363d}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:30px;line-height:1.15;letter-spacing:-.8px;margin:0 0 8px}h1 .a{color:var(--acc)}
+  .sub{color:var(--mut);font-size:18px;margin:0 0 24px}
+  h2{font-size:21px;margin:36px 0 10px}
+  nav a{color:var(--mut);font-size:14px;margin-right:14px;text-decoration:none}
+  p{margin:10px 0}code{font-family:ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:1px 5px;font-size:13.5px}
+  pre{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
+  .cta{display:block;background:var(--card);border:1px solid var(--acc);border-radius:12px;padding:22px;margin:34px 0;text-decoration:none;color:var(--fg)}.cta b{color:var(--acc)}
+  .btn{display:inline-block;margin-top:10px;background:var(--acc);color:#08130c;font-weight:700;padding:10px 18px;border-radius:8px;text-decoration:none}
+  a{color:var(--acc)}footer{color:var(--mut);font-size:13px;margin-top:40px;border-top:1px solid var(--bd);padding-top:16px}
+  @media(prefers-color-scheme:light){:root{--bg:#fff;--fg:#1b1f24;--mut:#57606a;--card:#f6f8fa;--bd:#d0d7de;--acc:#1a7f43}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <nav><a href="./">← Governance guide</a><a href="checklist.html">Reliability checklist</a></nav>
+  <h1>The <span class="a">Claude Code delegation charter</span>: template + how to write one</h1>
+  <p class="sub">A prompt tells a Claude Code agent what to do once. A charter tells it what a role is allowed to <em>be</em>. That's the difference between a task and an employee — and it's what lets an agent run autonomously without drifting or overstepping.</p>
+
+  <h2>The template</h2>
+  <p>A charter is one short markdown file that travels with the agent (keep it next to the agent in <code>.claude/agents/</code> or a <code>charters/</code> folder):</p>
+  <pre># Charter: [role-name]
+
+Mandate:      [the one job, measurable — e.g. "Publish 1 post/day to the blog queue"]
+Authority:    [what it MAY do — files it can edit, endpoints it can call]
+Boundaries:   [what it must NEVER do — "never touches billing", "never publishes without a draft on disk"]
+Definition of done:
+              [a real artifact, not a green log — e.g. "a live public URL is returned
+               AND written to /published/YYYY-MM-DD.json"]
+Escalate to human when:
+              - auth / login is required
+              - a payment or new account is involved
+              - anything irreversible
+Report format:
+              [one line per run: what shipped, the verified number (or "unverified"), blockers]</pre>
+
+  <h2>Why each field matters</h2>
+  <p><b>Mandate</b> keeps the agent from scope-creeping into other roles. <b>Authority</b> lets it act <em>without asking permission</em> for things clearly inside its lane — the #1 reason autonomous agents feel slow is an unclear authority line. <b>Boundaries</b> are the fence it stops at. <b>Definition of done</b> must be an external artifact (a live URL), never "the script exited 0" — exit codes lie. <b>Escalate-to-human</b> is the short list of things only a person may do; the agent files these as blockers instead of improvising a dangerous workaround.</p>
+
+  <h2>The one rule that makes it work</h2>
+  <p>The agent runs <b>free inside the fence</b> and <b>stops at the fence</b> — because the fence is written down, not inferred. Agents behave measurably better when both the freedom and the boundary are explicit.</p>
+
+  <a class="cta" href="https://github.com/bluelove0836-netizen/ai-employee-management-layer/blob/main/charters/AUTOPILOT_CHARTER.md">
+    <b>Full charter template on GitHub →</b><br>
+    The complete <code>AUTOPILOT_CHARTER.md</code> with revenue ladder, daily routine, guardrails, and blocker list. Free, MIT.
+  </a>
+
+  <a class="cta" href="https://bluelove3.gumroad.com/l/ai-employee-company?utm_source=ghpages&utm_medium=charter&utm_campaign=organic">
+    <b>The full 12-agent kit</b><br>
+    12 ready agents that run under this charter + memory system + scheduling recipes + 12 lessons. Launch price ladder: starts $19, +$10 per sale (count is public). Earlier is cheaper.
+    <span class="btn">Get the kit</span>
+  </a>
+  <footer>Part of a free governance guide for running Claude Code agents unattended. <a href="./">Read the 5 rules →</a></footer>
+</main>
+</body>
+</html>
