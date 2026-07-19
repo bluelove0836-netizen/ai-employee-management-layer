@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Manage Claude Code Agents: A Governance Guide (Free)</title>
+<meta name="description" content="Running Claude Code subagents unattended? The agents are the easy part. Learn the 5 governance rules — delegation charters, live-not-logs checks, facts-only reporting, one-lead-per-lane, persistent memory — that stop AI agents from failing quietly. Free templates + watchdog agents.">
+<meta name="keywords" content="claude code agents, claude code subagents, manage claude code agents, ai agent governance, claude code management, delegation charter, ai agent monitoring, claude code automation, agentops">
+<link rel="canonical" href="https://bluelove0836-netizen.github.io/ai-employee-management-layer/">
+<meta property="og:title" content="How to Manage Claude Code Agents: A Governance Guide">
+<meta property="og:description" content="The agents are the easy part. Here are the 5 rules that keep unattended Claude Code agents from failing quietly.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bluelove0836-netizen.github.io/ai-employee-management-layer/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"How to Manage Claude Code Agents: A Governance Guide","description":"The 5 governance rules for running Claude Code subagents unattended in production.","keywords":"claude code agents, ai agent governance, delegation charter","author":{"@type":"Organization","name":"AI Employee Company"}}
+</script>
+<style>
+  :root{--bg:#0d1117;--fg:#e6edf3;--mut:#8b949e;--acc:#7ee2a8;--card:#161b22;--bd:#30363d}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:34px;line-height:1.15;letter-spacing:-1px;margin:0 0 8px}
+  h1 .a{color:var(--acc)}
+  .sub{color:var(--mut);font-size:18px;margin:0 0 28px}
+  h2{font-size:22px;margin:40px 0 10px;letter-spacing:-.3px}
+  h3{font-size:17px;margin:24px 0 6px;color:var(--acc)}
+  p{margin:10px 0}
+  code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}
+  pre{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow-x:auto}
+  code{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:1px 5px}
+  pre code{background:none;border:none;padding:0}
+  .cta{display:block;background:var(--card);border:1px solid var(--acc);border-radius:12px;padding:22px;margin:36px 0;text-decoration:none;color:var(--fg)}
+  .cta b{color:var(--acc)}
+  .btn{display:inline-block;margin-top:10px;background:var(--acc);color:#08130c;font-weight:700;padding:10px 18px;border-radius:8px;text-decoration:none}
+  .chip{display:inline-block;background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--mut);margin:2px 4px 2px 0}
+  .quote{border-left:3px solid var(--acc);padding:6px 0 6px 16px;color:var(--fg);font-size:18px;margin:20px 0}
+  ul{padding-left:20px}
+  a{color:var(--acc)}
+  footer{color:var(--mut);font-size:13px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px}
+  @media(prefers-color-scheme:light){:root{--bg:#fff;--fg:#1b1f24;--mut:#57606a;--card:#f6f8fa;--bd:#d0d7de;--acc:#1a7f43}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p><span class="chip">Claude Code</span><span class="chip">AI agents</span><span class="chip">Free guide + templates</span></p>
+  <h1>How to manage <span class="a">Claude Code agents</span> so they don't fail quietly</h1>
+  <p class="sub">The agents are the easy part now — free packs of 100+ exist. What actually breaks a multi-agent setup is management. Here are the 5 rules from a real solo operation running several pipelines on Claude Code every day.</p>
+
+  <div class="quote">My scheduler logged <code>success</code> for six days while publishing nothing. That week is why this guide exists.</div>
+
+  <h2>The reframe: agents are commodities, governance isn't</h2>
+  <p>If your automation is failing, it's almost never a missing <code>code-reviewer.md</code>. It's failing for boring operational reasons: an agent reported success it didn't earn, two agents fought over the same file, one invented a number you almost shipped, a job died silently for days. None of that is an agent problem — it's a <b>governance</b> problem.</p>
+
+  <h2>Rule 1 — Delegation is a written contract, not a prompt</h2>
+  <p>A prompt says what to do once. A charter says what a role is allowed to be. It travels with the agent as plain markdown:</p>
+  <pre><code># Charter: publish-lead
+Mandate:    Publish 1 post/day to the blog queue.
+Authority:  May edit drafts in /drafts. May call the publish endpoint.
+Boundaries: Never touches billing. Never publishes without a draft on disk.
+Definition of done:
+            A live public URL is returned AND written to /published/YYYY-MM-DD.json
+Escalate to human when: auth required, payment/new account involved, queue empty.</code></pre>
+  <p>The agent runs <b>free inside the fence</b> and <b>stops at the fence</b> — because the fence is written down, not inferred.</p>
+
+  <h2>Rule 2 — Trust artifacts, not exit codes</h2>
+  <p>The most expensive failure in unattended automation: the log says success, reality says nothing happened. Verify live external state every run:</p>
+  <pre><code>curl -s https://your-site.com/ | grep -q "$(date +%Y-%m-%d)" \
+  && echo ALIVE || echo "NO ARTIFACT TODAY — pipeline is DOWN"</code></pre>
+  <p>A pipeline is alive only if today's public artifact actually exists. Exit <code>0</code> lies; artifacts don't.</p>
+
+  <h2>Rule 3 — Facts only</h2>
+  <p>No agent may state a number without a live source; otherwise it says <code>unverified</code>. Agents fabricate to be <em>helpful</em> — which is worse, because it reads as confident. This one rule is the difference between a dashboard you trust and one that flatters you.</p>
+
+  <h2>Rule 4 — One lead per lane</h2>
+  <p>One owning agent per pipeline. A do-everything agent drifts within a week; a narrow one builds deep context and its failures stay contained. Twelve narrow agents beat one wide one — like job descriptions beat "just handle stuff."</p>
+
+  <h2>Rule 5 — Memory is infrastructure</h2>
+  <p>Keep durable memory as one fact per file plus an index the agent reads each session. Write the <em>why</em>, not just the what. Delete wrong memories aggressively. Month two should feel like working with someone who was there in month one.</p>
+
+  <a class="cta" href="https://github.com/bluelove0836-netizen/ai-employee-management-layer">
+    <b>Free templates on GitHub →</b><br>
+    The delegation charter + the two watchdog agents (live-not-logs monitor, ship-gate reviewer). Plain markdown, MIT, drops into <code>.claude/agents/</code>.
+  </a>
+
+  <h2>The full system</h2>
+  <p>The complete <b>AI Employee Company — Starter Kit</b> has all 12 agents (chief-of-staff, CMO, blog/shorts/social/newsletter/commerce leads, analytics lead, research scout, product lead + the two watchdogs), the brand-base file they inherit, the persistent-memory system with templates, launchd/cron scheduling recipes, and the 12 expensive lessons behind every rule above.</p>
+  <a class="cta" href="https://bluelove3.gumroad.com/l/ai-employee-company?utm_source=ghpages&utm_medium=site&utm_campaign=organic">
+    <b>Get the kit — launch price ladder</b><br>
+    Starts at $19 and rises $10 with every sale (the count is public on the page, so the ladder is verifiable). Earlier is genuinely cheaper — no fake countdown.
+    <span class="btn">Get the Starter Kit</span>
+  </a>
+
+  <footer>
+    Written from a real, faceless solo operation running content + commerce pipelines on Claude Code. No frameworks, no lock-in — plain markdown you own.
+  </footer>
+</main>
+</body>
+</html>
