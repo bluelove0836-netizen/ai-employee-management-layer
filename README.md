@@ -2,6 +2,8 @@
 
 **The management layer for AI "employees" — free sample.**
 
+> 📖 New: [the 30-minute setup tutorial](https://dev.to/moonshot_1341/give-claude-code-an-org-chart-a-self-policing-ai-team-in-30-minutes-3-files-no-framework-4k5p) walks through installing these exact files.
+
 > Everyone hands you 100 free Claude Code subagents. Nobody tells you how to stop them from quietly wrecking your business. This repo is the *management* side.
 
 The agents are the easy part now — there are free packs of 100+. What actually breaks a multi-agent setup is management: an agent reports success it didn't earn, two agents fight over the same file, one invents a number you almost ship, a job dies silently for a week. None of that is an agent problem. It's a **governance** problem.
